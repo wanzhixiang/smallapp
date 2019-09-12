@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzx.smallapp.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.wzx.smallapp.domain.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_number" jdbcType="INTEGER" property="goodsNumber" />
+    <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="tracking_number" jdbcType="VARCHAR" property="trackingNumber" />
+    <result column="recommender" jdbcType="VARCHAR" property="recommender" />
+    <result column="royalty" jdbcType="DECIMAL" property="royalty" />
+    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="refund_time" jdbcType="TIMESTAMP" property="refundTime" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="goods_title" jdbcType="VARCHAR" property="goodsTitle" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="courier" jdbcType="DECIMAL" property="courier" />
+    <result column="goods_address" jdbcType="VARCHAR" property="goodsAddress" />
+    <result column="select_param" jdbcType="VARCHAR" property="selectParam" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, openid, goods_id, goods_number, goods_price, remark, tracking_number, recommender, 
+    royalty, pay_status, order_number, create_time, pay_time, refund_time, address_id,goods_title,img,courier,goods_address,select_param
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from `order`
+  where id = #{id,jdbcType=INTEGER}
+</select>
+  <select id="selectByOpenId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `order`
+    where openid = #{openid,jdbcType=VARCHAR} and pay_status=#{status,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from `order`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wzx.smallapp.domain.Order" useGeneratedKeys="true" keyProperty="id">
+    insert into `order` (id, openid, goods_id,
+      goods_number, goods_price, remark, 
+      tracking_number, recommender, royalty, 
+      pay_status, order_number, create_time, 
+      pay_time, refund_time, address_id,goods_title,img,courier,goods_address,select_param
+      )
+    values (#{id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{goodsNumber,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{trackingNumber,jdbcType=VARCHAR}, #{recommender,jdbcType=VARCHAR}, #{royalty,jdbcType=DECIMAL}, 
+      #{payStatus,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{payTime,jdbcType=TIMESTAMP}, #{refundTime,jdbcType=TIMESTAMP}, #{addressId,jdbcType=INTEGER},
+      #{goodsTitle,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{courier,jdbcType=DECIMAL},
+      #{goodsAddress,jdbcType=VARCHAR}, #{selectParam,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wzx.smallapp.domain.Order" useGeneratedKeys="true" keyProperty="id">
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsNumber != null">
+        goods_number,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="trackingNumber != null">
+        tracking_number,
+      </if>
+      <if test="recommender != null">
+        recommender,
+      </if>
+      <if test="royalty != null">
+        royalty,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="refundTime != null">
+        refund_time,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="goodsTitle != null">
+        goods_title,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="courier != null">
+        courier,
+      </if>
+      <if test="goodsAddress != null">
+        goods_address,
+      </if>
+      <if test="selectParam != null">
+        select_param,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNumber != null">
+        #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingNumber != null">
+        #{trackingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="recommender != null">
+        #{recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="royalty != null">
+        #{royalty,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundTime != null">
+        #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsTitle != null">
+        #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="courier != null">
+        #{courier,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsAddress != null">
+        #{goodsAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="selectParam != null">
+        #{selectParam,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wzx.smallapp.domain.Order">
+    update `order`
+    <set>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNumber != null">
+        goods_number = #{goodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingNumber != null">
+        tracking_number = #{trackingNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="recommender != null">
+        recommender = #{recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="royalty != null">
+        royalty = #{royalty,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundTime != null">
+        refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wzx.smallapp.domain.Order">
+    update `order`
+    set openid = #{openid,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_number = #{goodsNumber,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      tracking_number = #{trackingNumber,jdbcType=VARCHAR},
+      recommender = #{recommender,jdbcType=VARCHAR},
+      royalty = #{royalty,jdbcType=DECIMAL},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      address_id = #{addressId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="countByStatus" resultType="java.util.Map">
+    SELECT
+        SUM(IF(pay_status = 0,1,0)) noPay,
+        SUM(IF(pay_status = 1,1,0)) noTransfer,
+        SUM(IF(pay_status = 2,1,0)) noConfirm,
+        SUM(IF(pay_status = 3,1,0)) success,
+        SUM(IF(pay_status = 4,1,0)) cancel
+    FROM
+        `order` where openid=#{openid}
+    GROUP BY
+        openid
+  </select>
+</mapper>
